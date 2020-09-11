@@ -13,4 +13,15 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/add', function(req,res,next){
+  db.sequelize.sync()
+  .then(()=> db.FamousQuotes.create({
+    content: req.body.content,
+    detail: req.body.detail,
+    author: req.body.author
+  }))
+  .then(usr => {
+    res.redirect('/');
+  });
+});
 module.exports = router;
