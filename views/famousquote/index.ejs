@@ -12,6 +12,9 @@
       <h1 class="display-4"><%= title %></h1>
     </header>
     <div role="main">
+      <form method="get" action="/famousquote/add">
+        <input type="submit" value="名言を追加" class="btn btn-primary">
+      </form>
       <table class="table">
         <% for(var i in content) {%>
         <tr>
@@ -23,8 +26,6 @@
         </tr>
         <%}%>
       </table>
-      <form method="get" action="/add">
-      </form>
     </div>
   </body>
 </html>
