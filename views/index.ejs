@@ -12,17 +12,8 @@
       <h1 class="display-4"><%= title %></h1>
     </header>
     <div role="main">
-      <table class="table">
-        <% for(var i in content) {%>
-        <tr>
-            <% var obj = content[i]; %>
-            <th><%= obj.id %></th>
-            <td><%= obj.content %></td>
-            <td><%= obj.detail %></td>
-            <td><%= obj.author %></td>
-        </tr>
-        <%}%>
-      </table>
+      <a href="users/login">ログイン</a>
+      <a href="users/new">新規登録</a>
     </div>
   </body>
 </html>
