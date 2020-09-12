@@ -23,6 +23,9 @@
             <td><%= obj.content %></td>
             <td><%= obj.detail %></td>
             <td><%= obj.author %></td>
+            <td>
+              <a href="/famousquote/edit?id=<%= obj.id %>">編集</a>
+          </td>
         </tr>
         <%}%>
       </table>

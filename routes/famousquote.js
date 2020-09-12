@@ -44,4 +44,48 @@ router.post('/add',(req,res,next) => {
   )
 });
 
+//edit
+router.get('/edit',(req,res,next)=>{
+  db.FamousQuotes.findByPk(req.query.id)
+  .then(quote => {
+    var data = {
+      title: '編集',
+      form: quote
+    }
+    res.render('famousquote/edit', data);
+  });
+});
+
+router.post('/edit',(req,res,next)=> {
+  db.FamousQuotes.findByPk(req.body.id)
+  .then(quote => {
+    quote.content = req.body.content;
+    quote.detail = req.body.detail;
+    quote.author = req.body.author;
+    quote.save().then(()=>res.redirect('/famousquote'));
+  });
+});
+
+// delete
+router.get('/delete',(req,res,next)=>{
+  db.FamousQuotes.findByPk(req.query.id)
+  .then(quote => {
+    var data = {
+      title: '削除',
+      form: quote
+    }
+    res.render('famousquote/delete', data);
+  });
+});
+
+router.post('/delete',(req,res,next)=>{
+  db.sequelize.sync()
+  .then(()=> db.FamousQuotes.destroy({
+    where:{id:req.body.id}
+  }))
+  .then(quote => {
+    res.redirect('/famousquote');
+  });
+});
+
 module.exports = router;

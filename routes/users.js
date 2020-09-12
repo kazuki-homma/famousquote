@@ -44,6 +44,7 @@ router.post('/add',(req,res,next) => {
   )
 });
 
+//edit
 router.get('/edit',(req,res,next)=>{
   db.User.findByPk(req.query.id)
   .then(usr => {
