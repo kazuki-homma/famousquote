@@ -15,21 +15,33 @@ router.get('/', function(req, res, next) {
 
 router.get('/add',(req,res,next)=>{
   var data = {
-    title: 'Users/Add'
+    title: 'Users/Add',
+    form: new db.User(),
+    err:null
   }
   res.render('users/add', data);
 });
 
 router.post('/add',(req,res,next) => {
-  db.sequelize.sync()
-  .then(()=> db.User.create({
+  const form = {
     name: req.body.name,
     pass: req.body.pass,
     mail: req.body.mail
-  }))
+  };
+  db.sequelize.sync()
+  .then(() => db.User.create(form)
   .then(usr => {
-    res.redirect('/users');
-  });
+    res.redirect('/users')
+  })
+  .catch(err=> {
+    var data = {
+      title: 'Users/Add',
+      form: form,
+      err: err
+    }
+    res.render('users/add', data);
+  })
+  )
 });
 
 router.get('/edit',(req,res,next)=>{
@@ -50,6 +62,28 @@ router.post('/edit',(req,res,next)=> {
     usr.pass = req.body.pass;
     usr.mail = req.body.mail;
     usr.save().then(()=>res.redirect('/users'));
+  });
+});
+
+//user delete
+router.get('/delete',(req,res,next)=>{
+  db.User.findByPk(req.query.id)
+  .then(usr => {
+    var data = {
+      title: 'User/Delete',
+      form: usr
+    }
+    res.render('users/delete', data);
+  });
+});
+
+router.post('/delete',(req,res,next)=>{
+  db.sequelize.sync()
+  .then(()=> db.User.destroy({
+    where:{id:req.body.id}
+  }))
+  .then(usr => {
+    res.redirect('/users');
   });
 });
 
