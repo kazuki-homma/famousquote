@@ -20,7 +20,7 @@ router.post('/add', function(req,res,next){
     detail: req.body.detail,
     author: req.body.author
   }))
-  .then(usr => {
+  .then(quote => {
     res.redirect('/');
   });
 });
