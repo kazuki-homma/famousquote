@@ -105,12 +105,13 @@ router.post('/login',(req,res,next)=>{
     }
   }).then(usr => {
     if (usr != null){
-      req.session.login = usr;
-      let back = req.session.back;
-      if (back == null){
-        back = '/';
-      }
-      res.redirect(back);
+      res.redirect('/users');
+      //req.session.login = usr;
+      // let back = req.session.back;
+      // if (back == null){
+      //   back = '/';
+      // }
+      // res.redirect(back);
     } else {
       var data = {
         title: 'ログイン',
