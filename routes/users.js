@@ -88,4 +88,38 @@ router.post('/delete',(req,res,next)=>{
   });
 });
 
+//user login
+router.get('/login',(req,res,next)=>{
+  var data = {
+    title: 'ログイン',
+    content: '名前とパスワードを入力してください'
+  }
+  res.render('users/login', data);
+});
+
+router.post('/login',(req,res,next)=>{
+  db.User.findOne({
+    where:{
+      name:req.body.name,
+      pass:req.body.pass,
+    }
+  }).then(usr => {
+    if (usr != null){
+      req.session.login = usr;
+      let back = req.session.back;
+      if (back == null){
+        back = '/';
+      }
+      res.redirect(back);
+    } else {
+      var data = {
+        title: 'ログイン',
+        content: '名前かパスワードに誤りがあります。再度入力してください。'
+      }
+      res.render('users/login', data);
+    }
+  })
+});
+
+
 module.exports = router;
