@@ -122,5 +122,36 @@ router.post('/login',(req,res,next)=>{
   })
 });
 
+//新規登録
+router.get('/new',(req,res,next)=>{
+  var data = {
+    title: '新規登録',
+    form: new db.User(),
+    err:null
+  }
+  res.render('users/new', data);
+});
+
+router.post('/new',(req,res,next) => {
+  const form = {
+    name: req.body.name,
+    pass: req.body.pass,
+    mail: req.body.mail
+  };
+  db.sequelize.sync()
+  .then(() => db.User.create(form)
+  .then(usr => {
+    res.redirect('/users')
+  })
+  .catch(err=> {
+    var data = {
+      title: 'Users/new',
+      form: form,
+      err: err
+    }
+    res.render('users/new', data);
+  })
+  )
+});
 
 module.exports = router;
