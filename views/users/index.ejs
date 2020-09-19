@@ -19,6 +19,9 @@
                 <th><%= obj.id %></th>
                 <td><%= obj.name %></td>
                 <td><%= obj.mail %></td>
+                <td>
+                    <a href="/users/edit?id=<%= obj.id %>">編集</a>
+                </td>
             </tr>
             <%}%>
         </table>

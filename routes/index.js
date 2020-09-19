@@ -6,7 +6,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   db.FamousQuotes.findAll().then(contents => {
     var data = {
-      title: 'Famous Quote',
+      title: '言の葉の箱',
       content: contents
     }
     res.render('index', data);
@@ -20,7 +20,7 @@ router.post('/add', function(req,res,next){
     detail: req.body.detail,
     author: req.body.author
   }))
-  .then(usr => {
+  .then(quote => {
     res.redirect('/');
   });
 });
